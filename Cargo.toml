@@ -1,0 +1,13 @@
+[package]
+name = "notes"
+version = "0.1.0"
+authors = ["Renan Brayner <renanbrayner@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4"
+dirs = "3.0.1"
+subprocess = "0.2.6"
+toml = "0.5.8"
