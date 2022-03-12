@@ -83,7 +83,7 @@ fn read_config() -> Value {
     )) {
         Ok(config_file) => config_file,
         Err(_) => {
-            panic!("Could not found config file");
+            panic!("Could not found config file ~/notes/config.toml");
         }
     };
 
