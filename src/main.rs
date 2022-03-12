@@ -11,7 +11,6 @@ use std::{
     io::{Read, Write},
 };
 use toml::Value;
-// use toml::map::Map;
 
 fn main() {
     // Read args (except 1)
@@ -19,9 +18,29 @@ fn main() {
 
     // Config files
     let configs = read_config();
-    let editor = configs["editor"].as_str().unwrap();
-    let journal_dir = configs["directory_name"].as_str().unwrap();
-    let note_filetype = configs["filetype"].as_str().unwrap();
+
+    // setting default cases for empty configs
+    let notes_dir: &str;
+    if configs.get("directory_name").is_some() {
+        notes_dir = configs["directory_name"].as_str().unwrap();
+    } else {
+        notes_dir = "notes";
+    }
+
+    let editor: String;
+    if configs.get("editor").is_some() {
+        editor = configs.get("editor").unwrap().as_str().unwrap().to_string();
+    } else {
+        println!("editor config not set using $EDITOR var");
+        editor = env::var("EDITOR").expect("$EDITOR is not set");
+    }
+
+    let note_filetype: &str;
+    if configs.get("filetype").is_some() {
+        note_filetype = configs.get("filetype").unwrap().as_str().unwrap();
+    } else {
+        note_filetype = "";
+    }
 
     // Create files
     let now = Utc::now();
@@ -33,7 +52,7 @@ fn main() {
     let dir_path = format!(
         "{}/{}/{}/{}",
         home_path.to_str().unwrap(),
-        journal_dir,
+        notes_dir,
         year,
         month
     );
