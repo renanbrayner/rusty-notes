@@ -19,28 +19,21 @@ fn main() {
     // Config files
     let configs = read_config();
 
-    // setting default cases for empty configs
-    let notes_dir: &str;
-    if configs.get("directory_name").is_some() {
-        notes_dir = configs["directory_name"].as_str().unwrap();
-    } else {
-        notes_dir = "notes";
-    }
+    // Handle empty configs
+    let notes_dir = match configs.get("directory_name") {
+        Some(directory_name) => directory_name.as_str().unwrap(),
+        None => "notes",
+    };
 
-    let editor: String;
-    if configs.get("editor").is_some() {
-        editor = configs.get("editor").unwrap().as_str().unwrap().to_string();
-    } else {
-        println!("editor config not set using $EDITOR var");
-        editor = env::var("EDITOR").expect("$EDITOR is not set");
-    }
+    let editor = match configs.get("editor") {
+        Some(editor) => editor.as_str().unwrap().to_string(),
+        None => get_system_editor(),
+    };
 
-    let note_filetype: &str;
-    if configs.get("filetype").is_some() {
-        note_filetype = configs.get("filetype").unwrap().as_str().unwrap();
-    } else {
-        note_filetype = "";
-    }
+    let note_filetype = match configs.get("filetype") {
+        Some(filetype) => filetype.as_str().unwrap(),
+        None => "",
+    };
 
     // Create files
     let now = Utc::now();
@@ -99,4 +92,8 @@ fn read_config() -> Value {
         .unwrap_or_else(|err| panic!("Error while reading config: [{}],", err));
 
     config_toml.parse::<Value>().unwrap()
+}
+
+fn get_system_editor() -> String {
+    env::var("EDITOR").expect("$EDITOR is not set")
 }
