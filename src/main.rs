@@ -86,6 +86,26 @@ fn read_config() -> Value {
         "{}/notes/config.toml",
         config_dir.to_str().unwrap()
     );
+    // Open config file
+    let config_file = fs::OpenOptions::new()
+        .read(true)
+        .open(&config_file_path);
+
+    // Handle config file doensn't existing
+    let mut config_file = match config_file {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => {
+                fs::create_dir_all(format!("{}/notes", config_dir.to_str().unwrap())).expect("Error creating config file");
+                fs::OpenOptions::new()
+                        .read(true)
+                        .write(true)
+                        .create(true)
+                        .open(&config_file_path)
+                        .unwrap_or_else(|err| panic!("Error opening/creating configuration file: [{:?}]", err))
+            },
+            other_error => panic!("{}", other_error)
+        },
     };
 
     config_file
