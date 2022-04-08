@@ -42,7 +42,7 @@ There are 2 main ways of using this program:
 2. opening it in your terminal editor
 
 To edit the notes with your terminal editor simply call the program `notes` without passing any arguments.
-To append a line of text to the notes file just line the after the command like: `notes this line of text will be appended to the end of the file`
+To append a line of text to the notes file just write the line after the command like this: `notes this line of text will be appended to the end of the file`
 
 ## Configuration
 
