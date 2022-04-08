@@ -110,7 +110,7 @@ fn read_config() -> Value {
 
     config_file
         .read_to_string(&mut config_toml)
-        .unwrap_or_else(|err| panic!("Error while reading config: [{}],", err));
+        .unwrap_or_else(|err| panic!("Error while reading configuration file: [{:?}],", err));
 
     config_toml.parse::<Value>().unwrap()
 }
