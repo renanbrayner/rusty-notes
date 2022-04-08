@@ -1,10 +1,10 @@
 # RUSTY NOTES
 
-**A simple note taking program. Written in Rust 🦀**
+**A simple terminal note taking program. Written in Rust 🦀**
 
 ## Functionality
 
-The program works by creating a directory for your notes following the structure: **~/notes/year/month/day**. A normal notes folder will look like this
+The program works by creating a directory for your notes with the following structure: **~/notes/year/month/day** and appending a line of text you write to the end of the file or opening the file in your terminal text editor. A normal notes folder will look like this
 
 ```
 📁 notes
@@ -38,8 +38,8 @@ The program works by creating a directory for your notes following the structure
 ## How to use
 There are 2 main ways of using this program:
 
-1 appending a line of text into the note file
-2 opening it in your terminal editor
+1. appending a line of text into the note file
+2. opening it in your terminal editor
 
 To edit the notes with your terminal editor simply call the program `notes` without passing any arguments.
 To append a line of text to the notes file just line the after the command like: `notes this line of text will be appended to the end of the file`
@@ -56,3 +56,13 @@ editor = "nvim"
 directory_name = "journal"
 filetype = ".md"
 ```
+
+## Installation
+
+Running the following commands in order should work for most Linux distros
+
+1. Install rust `curl https://sh.rustup.rs -sSf | sh`
+2. Clone this repo `git clone https://github.com/renanbrayner/rusty-notes.git`
+3. Enter into the repo folder and build source code `cd rusty-notes && cargo build -r`
+4. Move the binary into ~/.local/bin `mv target/release/notes ~/.local/bin`
+5. Done! Just run `notes` and start using the program
