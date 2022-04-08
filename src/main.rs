@@ -82,10 +82,12 @@ fn read_config() -> Value {
         Some(dir) => dir,
         None => panic!("Couldn't find system configuration directory.")
     };
+
     let config_file_path = format!(
         "{}/notes/config.toml",
         config_dir.to_str().unwrap()
     );
+
     // Open config file
     let config_file = fs::OpenOptions::new()
         .read(true)
