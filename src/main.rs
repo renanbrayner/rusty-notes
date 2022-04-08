@@ -39,7 +39,10 @@ fn main() {
     let year = now.year();
     let month = format!("{:0>#2}", now.month());
     let day = format!("{:0>#2}", now.day());
-    let home_path = home_dir().unwrap();
+    let home_path = match home_dir() {
+        Some(home_dir) => home_dir,
+        None => panic!("Could not find home directory"),
+    };
 
     let dir_path = format!(
         "{}/{}/{}/{}",
