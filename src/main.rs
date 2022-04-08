@@ -41,7 +41,7 @@ fn main() {
     let day = format!("{:0>#2}", now.day());
     let home_path = match home_dir() {
         Some(home_dir) => home_dir,
-        None => panic!("Could not find home directory"),
+        None => panic!("Couldn't find home directory."),
     };
 
     let dir_path = format!(
