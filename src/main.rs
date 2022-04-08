@@ -82,13 +82,10 @@ fn read_config() -> Value {
         Some(dir) => dir,
         None => panic!("Couldn't find system configuration directory.")
     };
+    let config_file_path = format!(
         "{}/notes/config.toml",
         config_dir.to_str().unwrap()
-    )) {
-        Ok(config_file) => config_file,
-        Err(_) => {
-            panic!("Could not found config file ~/notes/config.toml");
-        }
+    );
     };
 
     config_file
