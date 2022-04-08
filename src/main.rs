@@ -4,8 +4,8 @@ extern crate subprocess;
 use chrono::{Datelike, Utc};
 use dirs::config_dir;
 use dirs::home_dir;
-use fs::File;
 use std::fs;
+use std::io::ErrorKind;
 use std::{
     env,
     io::{Read, Write},
