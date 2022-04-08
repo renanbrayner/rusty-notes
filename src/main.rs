@@ -16,23 +16,22 @@ fn main() {
     // Read args (except 1)
     let args: Vec<String> = env::args().skip(1).collect();
 
-    // Config files
     let configs = read_config();
 
     // Handle empty configs
     let notes_dir = match configs.get("directory_name") {
         Some(directory_name) => directory_name.as_str().unwrap(),
-        None => "notes",
+        None => "notes", // Use ~/notes if notes directory name is not set
     };
 
     let editor = match configs.get("editor") {
         Some(editor) => editor.as_str().unwrap().to_string(),
-        None => get_system_editor(),
+        None => get_system_editor(), // Use system editor if there is no editor on config
     };
 
     let note_filetype = match configs.get("filetype") {
         Some(filetype) => filetype.as_str().unwrap(),
-        None => "",
+        None => "", // No file extension if there is no filetype on config
     };
 
     // Create files
@@ -54,7 +53,7 @@ fn main() {
     fs::create_dir_all(dir_path).expect("Error creating directories.");
 
     if args.len() > 0 {
-        // Append args to end of file
+        // Append args to end of file if there are any args
         let text = args.join(" ");
         let mut file = fs::OpenOptions::new()
             .read(true)
@@ -66,7 +65,7 @@ fn main() {
         file.write(text.as_bytes()).expect("Error writing to file");
         file.write(b"\n\n").expect("Error writing to file");
     } else {
-        // Open editor
+        // Open editor if there are no args
         subprocess::Exec::cmd(format!("{}", editor))
             .arg(file_path)
             .join()
