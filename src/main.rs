@@ -78,8 +78,10 @@ fn main() {
 
 fn read_config() -> Value {
     let mut config_toml = String::new();
-    let config_dir = config_dir().unwrap();
-    let mut config_file = match File::open(&format!(
+    let config_dir = match config_dir() {
+        Some(dir) => dir,
+        None => panic!("Couldn't find system configuration directory.")
+    };
         "{}/notes/config.toml",
         config_dir.to_str().unwrap()
     )) {
