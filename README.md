@@ -11,7 +11,7 @@ The program works by creating a directory for your notes following the structure
 ├── 📁 2021
 │  └── 📁 12
 │     └── 📄 15
-└── 📁 2021
+└── 📁 2022
    ├── 📁 01
    │  ├── 📄 05
    │  ├── 📄 08
